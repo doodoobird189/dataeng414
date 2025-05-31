@@ -1,0 +1,12 @@
+digraph polyabasic_bn {
+	rankdir = LR;
+	orientation = landscape;
+	size = "7.5,10.0";
+
+	node [shape=ellipse]
+	n0 [label="@@th;a0,a1@"]
+	n1 [label="X"]
+	n2 [label="Y", style=filled,color=".7 .3 1.0"]
+
+	n0 -> n1 -> n2
+}

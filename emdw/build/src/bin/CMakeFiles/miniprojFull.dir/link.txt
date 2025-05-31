@@ -1,0 +1,1 @@
+g++ -std=c++17 -O3  CMakeFiles/miniprojFull.dir/miniprojFull.cc.o -o miniprojFull  -Wl,-rpath,/home/doodoobird189/devel/emdw/build/src:/home/doodoobird189/bin ../libemdw.so /home/doodoobird189/bin/libgLinear.so /home/doodoobird189/bin/libprlite.so -llapack -lblas -lssl -lcrypto -lz 

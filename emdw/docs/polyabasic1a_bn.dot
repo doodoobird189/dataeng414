@@ -1,0 +1,14 @@
+digraph polyabasic_bn {
+	rankdir = LR;
+	orientation = landscape;
+	size = "7.5,10.0";
+
+	node [shape=ellipse]
+	n1 [label="X"]
+	n4 [label="Y", style=filled,color=".7 .3 1.0"]
+	{rank=sink;n7}
+	n7 [label="phx;gx0,gx1"]
+
+	n1 -> n4
+	n7 -> n4
+}

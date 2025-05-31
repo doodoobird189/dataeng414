@@ -1,0 +1,25 @@
+digraph polyabasic_bn {
+	rankdir = LR;
+	orientation = landscape;
+	size = "7.5,10.0";
+
+	node [shape=ellipse]
+	n0 [rank=source,label="@@th;a"]
+	{rank=same;n1;n2;n3}
+	n1 [label="X1"]
+	n2 [label="X2"]
+	n3 [label="X3"]
+	{rank=same;n4;n5;n6}
+	n4 [label="Y1", style=filled,color=".7 .3 1.0"]
+	n5 [label="Y2", style=filled,color=".7 .3 1.0"]
+	n6 [label="Y3", style=filled,color=".7 .3 1.0"]
+	{rank=sink;n7}
+	n7 [label="@@phx;gx0,gx1@@"]
+
+	n0 -> n1 -> n4
+	n0 -> n2 -> n5
+	n0 -> n3 -> n6
+	n7 -> n4
+	n7 -> n5
+	n7 -> n6
+}

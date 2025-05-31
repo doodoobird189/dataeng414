@@ -1,0 +1,32 @@
+graph bayesianmean_MRF {
+  rankdir = TB
+  size = "20,20";
+  node [fontsize=20]
+
+  node [shape=circle]
+  overlap=false
+  m
+
+  node [shape=square]
+  overlap=false
+  m1 [label="m"]
+  m2 [label="m"]
+
+  node [shape=circle]
+  overlap=false
+  mx  [label="m,x"]
+
+  subgraph cluster_plate{
+    style=rounded
+    labelloc=b
+    labeljust=r
+    label=N
+    mxn [label="m,xn", style=filled,color=".7 .3 1.0"]
+  } 
+
+  m  -- m1
+  m  -- m2
+  m1 -- mxn
+  m2 -- mx 
+
+}

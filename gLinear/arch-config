@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Outputs a config list for all the architecture-specific config thingies.
+
+if [ `arch` = 'alpha' ]; then
+	echo "-DARCH_ALPHA -mieee";
+else
+	echo "-DARCH_INTEL";
+fi

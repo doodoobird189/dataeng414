@@ -1,0 +1,28 @@
+graph polyabasic_cg {
+	rankdir = LR;
+	orientation = portrait;
+	size = "7.5,10.0";
+	newrank="true";
+
+	node [shape=ellipse]
+	z [label="z"]
+	y [label="y|z,P"]
+	x [label="x|y"]
+	Phi [label="P;B"]
+
+	node [shape=box]
+	szy [label="z"]
+	sxy [label="y"]
+	syp [label="P"]
+
+	z -- szy -- y
+	x -- sxy -- y
+	y -- syp -- Phi
+
+	{rank=same; z}
+	{rank=same; szy}
+	{rank=same; y; sxy}
+	{rank=same; syp}
+	{rank=same; Phi}
+
+}

@@ -1,0 +1,125 @@
+graph hamming74_cg {
+	rankdir = TB;
+	orientation = portrait;
+	size = "7.5,10.0";
+	newrank="true";
+	concentrate="false";
+
+	node [shape=ellipse]
+	p4 [label="@@@p4;B4@@@"]
+	p5 [label="@@@p5;B5@@@"]
+	p6 [label="@@@p6;B6@@@"]
+	{rank=same; p4, p5, p6}
+
+	node [shape=box]
+	sp4c4 [label="*p4*"]
+	sp5c5 [label="*p5*"]
+	sp6c6 [label="*p6*"]
+	{rank=same; sp4c4, sp5c5, sp6c6}
+
+	node [shape=ellipse]
+	c4 [label="@@@c4|z4,p4@@@"]
+	c5 [label="@@@c5|z5,p5@@@"]
+	c6 [label="@@@c6|z6,p6@@@"]
+	{rank=same; c4,c5,c6}
+
+	p4 -- sp4c4 -- c4
+	p5 -- sp5c5 -- c5
+	p6 -- sp6c6 -- c6
+
+	node [shape=box]
+	sc4z4 [label="z4"]
+	sc5z5 [label="z5"]
+	sc6z6 [label="z6"]
+	{rank=same; sc4z4,sc5z5,sc6z6}
+
+	node [shape=box]
+	sz4z5 [label="*b0,b2*"]
+	sz5z6 [label="*b0,b3*"]
+	sz4z6 [label="b1"]
+	{rank=same; sz4z6,sz4z5,sz5z6}
+
+	node [shape=ellipse]
+	z4 [label="@@@z4|b0,b1,b2@@@"]
+	z5 [label="@@@z5|b0,b2,b3@@@"]
+	z6 [label="@@@z6|b0,b1,b3@@@"]
+	{rank=same; z4,z5,z6}
+
+	z4 -- sz4z5 -- z5 -- sz5z6 -- z6
+	z4 -- sz4z6 -- z6
+
+	c4 -- sc4z4 -- z4
+	c5 -- sc5z5 -- z5
+	c6 -- sc6z6 -- z6
+
+	node [shape=box]
+	sr4c4 [label="c4"]
+	sr5c5 [label="c5"]
+	sr6c6 [label="c6"]
+	{rank = same; sr4c4 sr5c5 sr6c6}
+
+	node [shape=box]
+	sr0z4 [label="b0"]
+	sr1z4 [label="b1"]
+	sr2z5 [label="b2"]
+	sr3z6 [label="b3"]
+	{rank = same; sr0z4,sr1z4,sr2z5,sr3z6,sr4c4, sr5c5, sr6c6}
+
+
+	node [shape=ellipse]
+	r4 [label="*r4|c4,P*",bgcolor="lightblue",style="filled"]
+	r0 [label="*r0|b0,P*",bgcolor="lightblue",style="filled"]
+	r1 [label="*r1|b1,P*",bgcolor="lightblue",style="filled"]
+	r2 [label="*r2|b2,P*",bgcolor="lightblue",style="filled"]
+	r3 [label="*r3|b3,P*",bgcolor="lightblue",style="filled"]
+	r5 [label="*r5|c5,P*",bgcolor="lightblue",style="filled"]
+	r6 [label="*r6|c6,P*",bgcolor="lightblue",style="filled"]
+	{rank = same; r0, r1, r2, r3, r4, r5, r6}
+
+	c4 -- sr4c4 -- r4
+	c5 -- sr5c5 -- r5
+	c6 -- sr6c6 -- r6
+	z4 -- sr0z4 -- r0
+	z4 -- sr1z4 -- r1
+	z5 -- sr2z5 -- r2
+	z6 -- sr3z6 -- r3
+
+	node [shape=box]
+	sr0P [label="*P*"]
+	sr1P [label="*P*"]
+	sr2P [label="*P*"]
+	sr3P [label="*P*"]
+	sr4P [label="*P*"]
+	sr5P [label="*P*"]
+	sr6P [label="*P*"]
+	{rank = same; sr0P, sr1P, sr2P, sr3P, sr4P, sr5P, sr6P}
+
+	node [shape=ellipse]
+	P [label="++P;B++"]
+	{rank = same; P}
+
+	r0 -- sr0P -- P
+	r1 -- sr1P -- P
+	r2 -- sr2P -- P
+	r3 -- sr3P -- P
+	r4 -- sr4P -- P
+	r5 -- sr5P -- P
+	r6 -- sr6P -- P
+
+	subgraph clusterN {
+		style = "rounded"
+		label = "N*"
+		labelloc = "b"
+		labeljust = "r"
+		c4 c5 c6
+		sc4z4 sc5z5 sc6z6
+		sr4c4 sr5c5 sr6c6
+		sr0z4 sr1z4 sr2z5 sr3z6
+		r4,r2,r5,r1,r0,r3,r6
+
+		subgraph Z {
+			z4 sz4z5 z5 sz5z6 z6 sz4z6
+		}
+	}
+
+}

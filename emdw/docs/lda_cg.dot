@@ -1,0 +1,37 @@
+graph lda_cg {
+	rankdir = LR;
+	orientation = landscape;
+	size = "7.5,10.0";
+
+	node [shape=ellipse]
+	n0 [label="@@thm;am"]
+	n1 [label="Zmn;thm@@"]
+	n2 [label="@Wmn;Zmn,PhiZmn@@@",bgcolor="lightblue",style="filled"]
+	n3 [label="@ph;B@"]
+
+	node [shape=box]
+	s01 [label="thm"]
+	s12 [label="Zmn@@"]
+	s23 [label="Phi"]
+
+	subgraph clusterM {
+		style = "rounded"
+		label = "M"
+		labelloc = "b"
+		labeljust = "r"
+
+		subgraph clusterN {
+			style = "rounded"
+			label = "N"
+			labelloc = "b"
+			labeljust = "r"
+			n1 s12 n2
+		}
+
+		n0 s01
+	}
+
+
+
+	n0 -- s01 -- n1 -- s12 -- n2 -- s23 -- n3
+}

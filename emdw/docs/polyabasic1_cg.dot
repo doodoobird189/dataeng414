@@ -1,0 +1,18 @@
+graph polyabasic_cg {
+	rankdir = LR;
+	orientation = landscape;
+	size = "7.5,10.0";
+
+	node [shape=ellipse]
+	n1 [label="X"]
+	n4 [label="Y;X,phx"]
+	n7 [label="phx;gx0,gx1"]
+
+	node [shape=box]
+	s14 [label="X"]
+	s47 [label="phx"]
+	sY  [label="Y"]
+
+	sY -- n4
+	n1 -- s14 -- n4 -- s47 -- n7
+}

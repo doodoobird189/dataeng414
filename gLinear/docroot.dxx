@@ -1,0 +1,77 @@
+/*
+ * $Id$
+ * 
+ * $Log$
+ * Revision 1.3  2000/03/24 10:20:47  goof
+ * Added CVS Word Substitution
+ *
+ */
+
+/**@name gLinear Templated C++ Matrix and Vector Class
+*/
+
+//@{
+	/**@name Error Handlers
+	*/
+	//@{
+	//@Include: gError.h
+	//@}
+	/**@name Support
+	*/
+	//@{
+	//@Include: gIndexRange.h
+	//@Include: gLinearMacros.h
+	//@Include: gLinearMem.h
+	//@}
+	
+	/**@name Vector Common
+	*/
+	//@{
+	//@Include: gVectorTraits.h
+	//@Include: gVectorBase.h
+	//@Include: gVectorMemBase.h
+	//@Include: gVectorCore.h
+	//@Include: gVectorIterator.h
+	//@}
+	
+	/**@name Row vectors
+	*/
+	//@{
+	//@Include: gRowVector.h
+	//@}
+
+	/**@name Column vectors
+	*/
+	//@{
+	//@Include: gColVector.h
+	//@}
+
+	/**@name Vector Operators
+	*/
+	//@{ 
+	//@Include: gVectorOpers.h
+	//@}
+
+
+	/**@name Matrix
+	*/
+	//@{
+	//@Include: gMatrixTraits.h
+	//@Include: gMatrixBase.h
+	//@Include: gMatrixMemBase.h
+	//@Include: gMatrixCore.h
+	//@Include: gMatrix.h
+	//@}
+	
+	/**@name Matrix Operators
+	*/
+	//@{ 
+	//@Include: gMatrixOpers.h
+	//@}
+	
+	/**@name Lapack wrap layer
+	*/
+	//@{
+	//@Include: gLapackWrap.h
+	//@}
+//@}

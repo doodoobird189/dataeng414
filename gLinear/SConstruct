@@ -1,0 +1,191 @@
+import os
+
+# EnsurePythonVersion(2, 4)
+# EnsureSConsVersion(0, 96)
+
+opts = Options('buildconf.py', ARGUMENTS)
+opts.Add(EnumOption('buildtype',
+                    'build type',
+                    'debug',
+                    allowed_values=('debug',
+                                    'release')))
+
+opts.Add(EnumOption('buildenv',
+                    'build environment',
+                    'auto',
+                    allowed_values=('auto', 'msvc', 'gcclinux', 'gcc4linux')))
+
+opts.Add('installprefix', 'path to install files to', None)
+opts.Add('buildprefix', 'paths to search for files', None)
+
+env = Environment(platform = Platform(), options=opts)
+env.SConsignFile()
+
+opts.Update(env)
+Help(opts.GenerateHelpText(env))
+
+### fix installprefix
+if env.has_key('installprefix'):
+    env['installprefix'] = os.path.abspath(env['installprefix'])
+    env['installprefixlib'] = os.path.join(env['installprefix'], 'lib')
+    env['installprefixbin'] = os.path.join(env['installprefix'], 'bin')
+    env['installprefixdoc'] = os.path.join(env['installprefix'], 'doc')
+    env['installprefixinc'] = os.path.join(env['installprefix'], 'include')
+    pass
+
+# buildprefixes
+if env.has_key('buildprefix'):
+    for buildprefix in env['buildprefix'].split(os.pathsep):
+        bpbin = os.path.join(buildprefix, 'bin')
+        bplib = os.path.join(buildprefix, 'lib')
+        bpinc = os.path.join(buildprefix, 'include')
+        env['ENV']['PATH'] = os.pathsep.join([bpbin, env['ENV']['PATH']])
+        env.Prepend(CPPPATH=[bpinc], LIBPATH=[bplib])
+        pass
+    pass
+
+# Auto-detect build environment if so requested
+if env['buildenv'] == 'auto':
+    if 'msvc' in env['TOOLS']:
+        env['buildenv'] = 'msvc'
+    else:
+        env['buildenv'] = 'gcclinux'
+        pass
+    pass
+
+# Compiler flags and code standards: ANSI C, ISO C++, POSIX, XOPEN
+if env['buildenv'] in ['gcclinux', 'gcc4linux']:
+    env.Replace(
+        CC='gcc-3.4',
+        CXX='g++-3.4',
+        CCFLAGS=[
+        '-std=c99',
+        '-pedantic',
+        '-pthread',
+        '-Wall'
+        ],
+        CXXFLAGS=[
+        '-ansi',
+        '-pedantic',
+        '-pthread',
+        '-Wall',
+        '-Wno-long-long',
+        '-W',
+        '-Wshadow',
+        '-Wpointer-arith',
+        '-Wcast-qual',
+        '-Wcast-align',
+        '-Wwrite-strings',
+        '-Wconversion',
+        '-Wredundant-decls',
+        # '-Wunreachable-code',
+        # '-Winline'
+        ],
+        CPPDEFINES=[
+        'LINUX',
+        '__UNIX__',
+        ('_POSIX_C_SOURCE', '199506L'),
+        '_XOPEN_SOURCE',
+        '_REENTRANT',
+        ('_FILE_OFFSET_BITS', 64)
+        ],
+        LINKFLAGS=[
+        '-rdynamic'
+        ])
+
+    # Debug and opto flags and defines
+    if 'debug' == env['buildtype']:
+        env.Append(
+            CCFLAGS=[
+            '-O0',
+            '-ggdb'
+            ],
+            CXXFLAGS=[
+            '-O0',
+            '-ggdb'
+            ])
+    else:
+        env.Append(
+            CCFLAGS=[
+            '-O2'
+            ],
+            CXXFLAGS=[
+            '-O2'
+            ])
+        pass
+    pass
+elif env['buildenv'] == 'msvc':
+    msvc_compile_flags = [
+        '/nologo',
+        '/W4',
+        '/GR',
+        '/EHsc',
+        '/Zc:forScope',
+        ]
+
+    # output preprocessed source to stdout and skip compilation
+    if 0: msvc_compile_flags.append('/E')
+    # show include file tree
+    if 0: msvc_compile_flags.append('/showIncludes')
+    # warn about possible 64-bit porting issues
+    if 0: msvc_compile_flags.append('/Wp64')
+
+    env.Replace(
+        CCFLAGS=msvc_compile_flags,
+        CXXFLAGS=msvc_compile_flags,
+        CPPDEFINES=[
+        'WIN32',
+        '_WIN32',
+        '_WINDOWS',
+        '_MBCS',
+        '_USE_MATH_DEFINES',
+        'NOMINMAX',
+        'VC_EXTRALEAN',
+        'WIN32_LEAN_AND_MEAN'
+        ],
+        LINKFLAGS=[
+        '/nologo'
+        ])
+
+    if 'debug' == env['buildtype']:
+        debug_flags = [
+            '/Od',
+            '/GS',
+            '/MTd',
+            '/RTCcsu',
+            '/Z7'
+            ]
+        env.Append(
+            CCFLAGS=debug_flags,
+            CXXFLAGS=debug_flags,
+            CPPDEFINES=[
+            '_DEBUG'
+            ],
+            LINKFLAGS=['/DEBUG'])
+    else:
+        release_flags = [
+            '/O2',
+            '/MT'
+            ]
+        env.Append(CCFLAGS=release_flags, CXXFLAGS=release_flags)
+        pass
+    pass
+
+# generic debug options
+if 'debug' == env['buildtype']:
+    # add debug defines to the environment here
+    pass
+
+env.SConscript(os.path.join('SConscript'), exports=['env'])
+
+### all target
+for t in DEFAULT_TARGETS:
+    env.Alias('all', t)
+    pass
+
+### targets to install everything
+if env.has_key('installprefix'):
+    env.Alias('installall', 'installlibs')
+    #env.Alias('installall', 'installdocs')
+    env.Alias('install', 'installall')
+    pass

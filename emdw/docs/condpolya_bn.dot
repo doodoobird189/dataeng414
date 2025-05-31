@@ -1,0 +1,36 @@
+digraph condpolya_bn {
+	rankdir = LR;
+	orientation = portrait;
+	size = "7.5,10.0";
+	newrank="true";
+
+	node [shape=point]
+
+	beta0 [xlabel="b0"]
+	beta1 [xlabel="b1"]
+
+	node [shape=ellipse]
+
+	x [label="x"]
+	y [label="y"]
+	z [label="z"]
+	phi0 [label="p0"]
+	phi1 [label="p1"]
+
+	z -> y -> x
+	y -> {phi0 phi1} [dir="back"]
+	phi0 -> beta0 [dir="back"]
+	phi1 -> beta1 [dir="back"]
+
+	subgraph clusterP {
+			label = "@P;B"
+			labelloc = "b"
+			labeljust = "r"
+			phi0, phi1, beta0, beta1
+		}
+
+	{rank=same; z}
+	{rank=same; x; y}
+	{rank=same; phi0; phi1}
+	{rank=same; beta0; beta1}
+}

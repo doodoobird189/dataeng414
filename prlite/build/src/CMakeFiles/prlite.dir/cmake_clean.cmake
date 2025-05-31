@@ -1,0 +1,41 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/prlite.dir/prlite_alloc.cc.o"
+  "CMakeFiles/prlite.dir/prlite_alloc.cc.o.d"
+  "CMakeFiles/prlite.dir/prlite_colourmap.cc.o"
+  "CMakeFiles/prlite.dir/prlite_colourmap.cc.o.d"
+  "CMakeFiles/prlite.dir/prlite_endian.cc.o"
+  "CMakeFiles/prlite.dir/prlite_endian.cc.o.d"
+  "CMakeFiles/prlite.dir/prlite_fnamepar.cc.o"
+  "CMakeFiles/prlite.dir/prlite_fnamepar.cc.o.d"
+  "CMakeFiles/prlite.dir/prlite_genmat.cc.o"
+  "CMakeFiles/prlite.dir/prlite_genmat.cc.o.d"
+  "CMakeFiles/prlite.dir/prlite_logging.cc.o"
+  "CMakeFiles/prlite.dir/prlite_logging.cc.o.d"
+  "CMakeFiles/prlite.dir/prlite_matrix.cc.o"
+  "CMakeFiles/prlite.dir/prlite_matrix.cc.o.d"
+  "CMakeFiles/prlite.dir/prlite_mrandom.cc.o"
+  "CMakeFiles/prlite.dir/prlite_mrandom.cc.o.d"
+  "CMakeFiles/prlite.dir/prlite_my_any.cc.o"
+  "CMakeFiles/prlite.dir/prlite_my_any.cc.o.d"
+  "CMakeFiles/prlite.dir/prlite_shuffles.cc.o"
+  "CMakeFiles/prlite.dir/prlite_shuffles.cc.o.d"
+  "CMakeFiles/prlite.dir/prlite_stdfun.cc.o"
+  "CMakeFiles/prlite.dir/prlite_stdfun.cc.o.d"
+  "CMakeFiles/prlite.dir/prlite_stringlist.cc.o"
+  "CMakeFiles/prlite.dir/prlite_stringlist.cc.o.d"
+  "CMakeFiles/prlite.dir/prlite_stringops.cc.o"
+  "CMakeFiles/prlite.dir/prlite_stringops.cc.o.d"
+  "CMakeFiles/prlite.dir/prlite_testing.cc.o"
+  "CMakeFiles/prlite.dir/prlite_testing.cc.o.d"
+  "CMakeFiles/prlite.dir/prlite_thread.cc.o"
+  "CMakeFiles/prlite.dir/prlite_thread.cc.o.d"
+  "CMakeFiles/prlite.dir/prlite_zfstream3.cc.o"
+  "CMakeFiles/prlite.dir/prlite_zfstream3.cc.o.d"
+  "libprlite.pdb"
+  "libprlite.so"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/prlite.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

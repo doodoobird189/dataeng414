@@ -1,0 +1,32 @@
+graph polyabasic_cg {
+	rankdir = LR;
+	orientation = landscape;
+	size = "7.5,10.0";
+
+	node [shape=ellipse]
+	n0 [label="@@th;a"]
+	n1 [label="X1;th@"]
+	n2 [label="X2;th@"]
+	n3 [label="X3;th@"]
+	n4 [label="@Y1;X1,phx@", style=filled,color=".7 .3 1.0"]
+	n5 [label="@Y2;X2,phx@", style=filled,color=".7 .3 1.0"]
+	n6 [label="@Y3;X3,phx@", style=filled,color=".7 .3 1.0"]
+	n7 [label="@@phx;gx0,gx1@@"]
+
+	node [shape=box]
+	s01 [label="th"]
+	s02 [label="th"]
+	s03 [label="th"]
+
+	s14 [label="X1"]
+	s25 [label="X2"]
+	s36 [label="X3"]
+
+	s47 [label="phx"]
+	s57 [label="phx"]
+	s67 [label="phx"]
+
+	n0 -- s01 -- n1 -- s14 -- n4 -- s47 -- n7
+	n0 -- s02 -- n2 -- s25 -- n5 -- s57 -- n7
+	n0 -- s03 -- n3 -- s36 -- n6 -- s67 -- n7
+}

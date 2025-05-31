@@ -1,0 +1,487 @@
+\chapter{The multi-variate Gaussian (MVG) distribution}
+
+
+\section{Factor summary}
+\begin{description}
+\item [{Product/Absorb:}] Gaussian
+\item [{Divide/Cancel:}] Very similar to product.
+\item [{Marginalize:}] Gaussian
+\item [{ObserveAndReduce:}] Gaussian
+\item [{Non-reducing~observe:}] Singular, can't do.
+\item [{Normalize:}] Easy, complete squares
+\item [{Dampen:}] MG
+\end{description}
+
+\section{Representations}
+
+
+\subsection{Covariance form}
+
+\begin{equation}
+p(\mathbf{x;\mathbf{\mu},\mathbf{\Sigma}})=\frac{1}{\sqrt{|2\pi\Sigma|}}\exp\left[-\frac{1}{2}(\mathbf{x}-\mathbf{\mu})^{T}\Sigma^{-1}(\mathbf{x}-\mathbf{\mu})\right]
+\end{equation}
+ In the following sections we will show alternate interpretations
+of the MVG given by:
+
+
+\paragraph{Example:}
+
+\begin{align*}
+\mathbf{\mu=} & \left[\begin{array}{r}
+1\\
+-3\\
+4
+\end{array}\right]\\
+\Sigma= & \left[\begin{array}{rrr}
+4 & 2 & -2\\
+2 & 5 & -5\\
+-2 & -5 & 8
+\end{array}\right].
+\end{align*}
+
+
+Note that, with no zeros in the covariance matrix, none of the RVs
+are marginally/unconditionally independent of others.
+
+
+\paragraph{Correlation-coefficient version:\protect \\
+\label{par:corr_coef_form}}
+
+We can rewrite a covariance matrix as the product:
+
+\begin{align}
+  \B{\Sigma}
+  =&
+  \left[
+    \begin{array}{cccc}
+      \sigma_1 & 0 & \ldots & 0 \\
+      0 & \sigma_2 &\ldots & 0 \\
+      \vdots & \vdots & & \vdots \\
+      0 & 0 & \ldots & \sigma_D
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{cccc}
+      1 & \rho_{1,2} & \ldots & \rho_{1,D} \\
+      \rho_{2,1} & 1 & \ldots & \rho_{2,D} \\
+      \vdots & \vdots & & \vdots \\
+      \rho_{D,1} & \rho_{D,2} & \ldots & 1
+    \end{array}
+  \right]
+  \left[
+    \begin{array}{cccc}
+      \sigma_1 & 0 & \ldots & 0 \\
+      0 & \sigma_2 &\ldots & 0 \\
+      \vdots & \vdots & & \vdots \\
+      0 & 0 & \ldots & \sigma_D
+    \end{array}
+  \right] \nonumber\\
+  =& \B{\Lambda}_D \B{\Psi} \B{\Lambda}_D. \label{eq:corrcoef}
+\end{align}
+
+$\Psi$ is known as the correlation-coefficient matrix. This form
+has the advantage that the off-diagonal terms $|\rho_{i,j}|\leq1$
+and the scale becomes more interpretable. If in a Bayes net we want
+to consider leaving out a specific variable combination, you might
+want to inspect the correlation-coefficient matrix. Note that not
+all symmetric matrices with a positive determinant are positive definite.
+Take for instance $\Sigma=\left[\begin{array}{rrr}
+1 & 2 & 2\\
+2 & 1 & 2\\
+2 & 2 & 1
+\end{array}\right].$ Symmetric it is, and with a determinant of 5 all seems fine, but
+the correlation coefficients exceeds unity, a sufficient (although
+not necessary) indication that this matrix is not positive definite.
+(It has eigenvalues $\{-1,-1,5\}$.)
+
+
+\paragraph{Example (continued):}
+
+\begin{align*}
+\Sigma= & \left[\begin{array}{rrr}
+2 & 0 & 0\\
+0 & \sqrt{5} & 0\\
+0 & 0 & \sqrt{8}
+\end{array}\right]\left[\begin{array}{ccc}
+1 & 0.4472 & -0.3536\\
+0.4472 & 1 & -0.7906\\
+-0.3536 & -0.7906 & 1
+\end{array}\right]\left[\begin{array}{rrr}
+2 & 0 & 0\\
+0 & \sqrt{5} & 0\\
+0 & 0 & \sqrt{8}
+\end{array}\right].
+\end{align*}
+
+
+From this we learn that the weakest correlation is between $x_{1}\mbox{ and }x_{3}$,
+but even that is still fairly strong (far from zero).
+
+We can also diagonalize/decorrelate the covariance matrix as $\Lambda=V^{T}\Sigma V$.
+This form implies that $\mathbf{y}=V^{T}\mathbf{x}$ will be decorrelated
+with diagonal covariance matrix $\Lambda$. This just might just prove
+useful in combination with a Linear Gaussian representation (to be
+discussed later).
+
+
+\paragraph{Example (continued):\protect \\
+}
+
+\begin{align*}
+\left[\begin{array}{ccc}
+1.1979 & 0 & 0\\
+0 & 3.1729 & 0\\
+0 & 0 & 12.6292
+\end{array}\right]= & \left[\begin{array}{rrr}
+0.1955 & -0.9308 & -0.3089\\
+-0.8167 & 0.0199 & -0.5767\\
+-0.5429 & -0.3650 & 0.7563
+\end{array}\right]^{T}\left[\begin{array}{rrr}
+4 & 2 & -2\\
+2 & 5 & -5\\
+-2 & -5 & 8
+\end{array}\right]\left[\begin{array}{rrr}
+0.1955 & -0.9308 & -0.3089\\
+-0.8167 & 0.0199 & -0.5767\\
+-0.5429 & -0.3650 & 0.7563
+\end{array}\right].
+\end{align*}
+
+
+
+\paragraph{Estimating the population mean and covariance:}
+
+\begin{align*}
+\mathbf{\mu} & =\frac{\sum_{i}w_{i}\mathbf{x}_{i}}{\sum_{i}w_{i}}\\
+\Sigma & =\frac{\sum_{i}w_{i}(\mathbf{x}_{i}-\mathbf{\mu})(\mathbf{x}_{i}-\mathbf{\mu}){}^{T}}{\sum_{i}w_{i}}\\
+ & =\frac{\sum_{i}w_{i}\mathbf{x}_{i}\mathbf{x}_{i}^{T}}{\sum_{i}w_{i}}-\mu\mu^{T}\\
+ & =\frac{\sum_{i}w_{i}\mathbf{x}_{i}\mathbf{x}_{i}^{T}-\mathbf{\mu}\sum_{i}w_{i}\mathbf{x}_{i}^{T}}{\sum_{i}w_{i}}.
+\end{align*}
+
+
+
+\subsection{Information form}
+
+\begin{equation}
+p(\mathbf{x;\mathbf{\mu},}J)=\sqrt{\left|\frac{J}{2\pi}\right|}\exp\left[-\frac{1}{2}(\mathbf{x}-\mathbf{\mu})^{T}J(\mathbf{x}-\mathbf{\mu})\right]
+\end{equation}
+
+
+
+\paragraph{Example (continued):}
+
+When we transform the above example to information form, the mean
+remains unchanged and the precision/information matrix becomes:
+
+\begin{align*}
+J= & \left[\begin{array}{rrr}
+0.3125 & -0.125 & 0\\
+-0.125 & 0.5833 & 0.3333\\
+0 & 0.3333 & 0.3333
+\end{array}\right].
+\end{align*}
+
+
+We get an interesting parallel to the correlation coefficient matrix
+when we normalize using $\frac{-J_{i,j}}{\sqrt{J_{i,i}J_{j,j}}}$.
+These coefficients are known as the partial correlation coefficients%
+\footnote{See http://www.tulane.edu/\textasciitilde{}PsycStat/dunlap/Psyc613/RI2.html%
+} and give the correlation coefficient between $i$ and $j$ after
+we have compensated for the effect of all other random variables in
+the distribution. Note that the zero in the 1,3 position indicates
+that $X_{1}\bot X_{3}|X_{2}$. This type of conditional independence
+will prove useful later when constructing graphs representing these
+distributions.
+
+
+\subsection{Canonical form (CF)}
+
+\begin{equation}
+\mathcal{C}(\mathbf{x};K,\mathbf{h})=\exp\left[-\frac{1}{2}\mathbf{x}^{T}K\mathbf{x}+\mathbf{h}^{T}\mathbf{x}+g\right]
+\end{equation}
+
+
+with:
+
+\begin{align*}
+K= & \Sigma^{-1}\\
+\mathbf{h=} & \Sigma^{-1}\mathbf{\mu}\\
+= & K\mathbf{\mu}\\
+g= & -\frac{1}{2}\mathbf{\mu}^{T}\Sigma^{-1}\mathbf{\mu}-\log(\sqrt{|2\pi\Sigma|})\text{ \hspace{1em}\hspace{1em}(from covariance form parameters)}\\
+= & -\frac{1}{2}\mathbf{\mu}^{T}K\mathbf{\mu}+\log\left(\sqrt{\left|\frac{K}{2\pi}\right|}\right)\text{ \hspace{1em}\hspace{1em}(from information form parameters)}\\
+= & -\frac{1}{2}\mathbf{h}^{T}K^{-1}\mathbf{h}+\log\left(\sqrt{\left|\frac{K}{2\pi}\right|}\right)\text{ \hspace{1em}(from canonical form parameters)}.
+\end{align*}
+
+
+We can also easily transform from canonical form back to the original
+covariance form via $\Sigma=K^{-1}$and then setting $\mathbf{\mu}=\Sigma\mathbf{h}$
+(with $K$ symmetrical and positive definite). If we want to go from
+canonical form to information form, it is better to directly solve
+for $\B\mu$ from $\mathbf{\mathbf{h}}=K\mu$.
+
+Note that $g$ is fully specified i.t.o. $K$ and $\mathbf{h}$, and
+therefore is redundant -- we will often simply ignore it. However,
+should we want to calculate it, it turns out to be a bit of a bummer:
+In both the canonical and covariance forms we need to find an inverse
+and a determinant; the information form only requires a determinant
+(which hints that it might turn out to be particularly useful to instead
+work with triangular decompositions).
+
+
+\paragraph{Example (continued):}
+
+\begin{align*}
+K= & \left[\begin{array}{rrr}
+0.3125 & -0.125 & 0\\
+-0.125 & 0.5833 & 0.3333\\
+0 & 0.3333 & 0.3333
+\end{array}\right]\\
+h= & \left[\begin{array}{r}
+0.68750\\
+-0.54167\\
+0.33333
+\end{array}\right].
+\end{align*}
+
+
+
+\section{CF Factor operations \cite[p 610]{Koller2009}}
+
+
+\subsection{Factor product}
+
+\begin{equation}
+\mathcal{C}(\mathbf{x};K_{1},\mathbf{h}_{1}, g_1)\mathcal{C}(\mathbf{x};K_{2},\mathbf{h}_{2}, g_2)=\mathcal{C}(\mathbf{x};K_{1}+K_{2},\mathbf{h}_{1}+\mathbf{h}_{2}, g_1+g_2)\label{eq:cfprod}
+\end{equation}
+
+
+To do this it might be necessary to first extend the scope of the
+canonical forms involved to a common one.
+
+(Cost ($\mathcal{O}(D^{2})$.)
+
+
+\subsection{Factor division}
+
+\begin{equation}
+\frac{\mathcal{C}(\mathbf{x};K_{1},\mathbf{h}_{1}, g_1)}{\mathcal{C}(\mathbf{x};K_{2},\mathbf{h}_{2}, g_2)}=\mathcal{C}(\mathbf{x};K_{1}-K_{2},\mathbf{h}_{1}-\mathbf{h}_{2}, g_1-g_2)\label{eq:cfdiv}
+\end{equation}
+
+
+(Cost ($\mathcal{O}(D^{2})$.)
+
+
+\subsection{Factor marginalization}
+
+This one is trivial if we are already working with the covariance
+form. Lets say we are interested in $p(\mathbf{x})$ given a $p(\mathbf{x},\mathbf{y})$
+with covariance form parameters:
+
+\begin{align*}
+\Sigma= & \left[\begin{array}{cc}
+\Sigma_{X,X} & \Sigma_{X,Y}\\
+\Sigma_{Y,X} & \Sigma_{Y,Y}
+\end{array}\right]\mbox{ ; }\mathbf{\mu}=\left[\begin{array}{c}
+\mathbf{\mu_{x}}\\
+\mathbf{\mu_{y}}
+\end{array}\right].
+\end{align*}
+
+
+The marginal is then simply $p(\mathbf{x;\mathbf{\mu_{x}},\mathbf{\Sigma_{xx}}})$.
+If we need to repeatedly marginalize a joint distribution w.r.t. various
+subsets of its variables, it makes sense to first convert to covariance
+form thereby paying this \textbf{matrix inversion} cost only once.
+At $\mathcal{O}(D^{3})$ this probably is the main contributor to
+the inference cost in a belief propagation system.
+
+However, if the representation is in information form or canonical
+form and the marginalisation is a once-off matter, it will be cheaper
+to directly work with the precision matrix. To do this we need to
+find $\Sigma_{X,X}$ i.t.o. the components of $K$ (and no,
+unfortunately $\Sigma_{X,X}\neq K_{X,X}^{-1}$).
+The following explores this.
+
+In the joint canonical form $\mathcal{C}(\mathbf{x},\mathbf{y};K,\mathbf{h})$,
+let:
+
+\begin{align*}
+K= & \left[\begin{array}{cc}
+K_{X,X} & K_{X,Y}\\
+K_{Y,X} & K_{Y,Y}
+\end{array}\right]\mbox{ ; }\mathbf{h}=\left[\begin{array}{c}
+\mathbf{h}_{X}\\
+\mathbf{h}_{Y}
+\end{array}\right].
+\end{align*}
+
+
+A useful identity for the inverse of a partitioned matrix is \cite[pg 87]{Bishop2006}:
+
+\begin{align*}
+\left[\begin{array}{cc}
+A & B\\
+C & D
+\end{array}\right]^{-1}= & \left[\begin{array}{cc}
+M & -MBD^{-1}\\
+-D^{-1}CM & D^{-1}+D^{-1}CMBD^{-1}
+\end{array}\right]\,\text{ with}
+\end{align*}
+
+
+\begin{align*}
+M= & \left(A-BD^{-1}C\right)^{-1}.
+\end{align*}
+
+
+From this it follows that with:
+
+\begin{align*}
+\left[\begin{array}{cc}
+K_{X,X} & K_{X,Y}\\
+K_{Y,X} & K_{Y,Y}
+\end{array}\right]^{-1}= & \left[\begin{array}{cc}
+\Sigma_{X,X} & \Sigma_{X,Y}\\
+\Sigma_{Y,X} & \Sigma_{Y,Y}
+\end{array}\right],\text{ }
+\end{align*}
+
+
+\begin{align*}
+\Sigma_{X,X}= & (K_{X,X}-K_{X,Y}K_{Y,Y}^{-1}K_{Y,X})^{-1}.
+\end{align*}
+
+
+Our marginalised precision now is:
+
+\begin{align}
+K'= & K_{X,X}-K_{X,Y}K_{Y,Y}^{-1}K_{Y,X}.\label{eq:cfmarg_K}
+\end{align}
+
+
+The marginalised potential becomes
+
+\begin{align*}
+\mathbf{h'=} & \Sigma_{X,X}^{-1}\mathbf{\mu_{x}}\\
+= & K_{X,X}\mathbf{\mu_{x}}-K_{X,Y}K_{Y,Y}^{-1}K_{Y,X}\mathbf{\mu_{x,}}
+\end{align*}
+
+
+which (apparently, I have not done it) simplifies to:
+
+\begin{align}
+\mathbf{h}'= & \mathbf{h}_{X}-K_{X,Y}K_{Y,Y}^{-1}\mathbf{h}_{Y}.\label{eq:cfmarg_h}
+\end{align}
+
+The new scaling constant becomes:
+
+\begin{align}
+g' =& g + \frac{1}{2}\left(\log|2\pi K_{Y,Y}^{-1}| + \mathbf{h}_Y^T K_{Y,Y}^{-1}\mathbf{h}_Y\right). \label{eq:cfmarg_g}
+\end{align}
+
+The canonical form for $p(\mathbf{x})$ then is $\mathcal{C}(\mathbf{x};K',\mathbf{h}')$.
+It is with satisfaction that we note that the matrix inversion is
+limited to the smaller precision matrix of the variables we want to
+marginalise out.
+
+
+\subsection{Observing variables}
+
+Lets say we are interested in $p(\mathbf{x}|\mathbf{y})$ given a
+$p(\mathbf{x},\mathbf{y})$. With the joint canonical form as before,
+the canonical form for $p(\mathbf{x}|\mathbf{y})$ then is $\mathcal{C}(\mathbf{x};K',\mathbf{h}')$,
+with:
+
+\begin{align}
+K'= & K_{X,X},\label{eq:cfcond_K}\\
+\mathbf{h}'= & \mathbf{h}_{X}-K_{X,Y}\mathbf{y},\label{eq:cfcond_h}\\
+g'= & g + \mathbf{h}_Y^T\mathbf{y}-\frac{1}{2}\mathbf{y}^T K_{Y,Y}\mathbf{y}.\label{eq:cfcond_g}
+\end{align}
+
+The main computational expense is the matrix-vector product, but since
+this is normally only done \textbf{outside the loop} during the initialisation
+of a inference system, it is of little consequence.
+
+
+\subsection{Factor normalization}
+
+When normalised $g$ is fully dependent on $ K$ and
+$\mathbf{h}$ and can therefore be ignored. However, in situations
+where we purposefully want the PDF volume to not normalized, and also
+if we explicitly need the height of the pdf at some particular point,
+$g$ will be required.
+
+
+\subsection{Message damping}
+
+Oops, we're in trouble here. A weighted combination of Gaussians is
+a mixture Gaussian. So either we have to a) not dampen, or b) approximate
+(typically weak marginalisation) or c) work with GMMs. Normally we
+also determine the difference between two messages in this step --
+it is used to select factors to propagate and also determine convergence.
+The Mahanalobis distance seems to do a decent job (although it needs
+a \textbf{cholesky solver} for finding the mean), the fuller solution
+would be a symmetric KL distance (very expensive).
+
+
+\subsection{Vacuous canonical form}
+
+When we need a ``unity'' canonical form distribution (as in the
+initial step of loopy belief propagation) we simply set $K=\mathbf{h}=g=0$.
+
+
+\section{Laplace's approximation}
+
+Sometimes we have a non-Gaussian distribution that we want to approximate
+as a Gaussian. The approximation, of course, will minimise some measure
+as to how well it fits the original Gaussian. If in particular we
+want to find the best fit that maintains the same mode, and approximates
+the covariance in the vicinity of this mode, one can consider the
+Laplace approximation. Some requirements:
+\begin{itemize}
+\item It is only applicable to continuous variables and
+\item works better if the underlying density that we are trying to approximate,
+is bell-shaped. Sometimes a good axis transformation can help to make
+densities more bell-shaped. One should expect that multi-modal densities
+will behave particularly badly.
+\item In order to apply this we need to be able to find the maximum point
+of the underlying density, and
+\item also its Hessian at this maximum point. The Hessian must be negative
+definite at his point, i.e. we must be at a local maximum, not a saddle
+point or local minimum.
+\end{itemize}
+Let $P^{*}(\mathbf{x})$ be the unnormalised underlying density that
+we want to approximate. Let $\mathbf{x}_{0}$ be the point at which
+it attains a maximum. Then if we use the first two terms of the Taylor
+series expansion we get:
+\begin{align}
+\log(P^{*}(\mathbf{x})) & \simeq\log(P^{*}(\mathbf{x}))-\frac{1}{2}({\mathbf{x}}-\B{x}_{0})^{T}\B{A}(\B{x}-\B{x}_{0})
+\end{align}
+ with $\B{A}$ the second derivative i.e. the Hessian of $-\log(P^{*}(\B{x}))_{\text{ at }\B{x}=\B{x}_{0}}$.
+The absent first-order Taylor term is because the first derivative
+is zero at the maximum. Comparing this to the log of the Gaussian
+density shows the correspondences:
+
+\begin{align}
+\log(Q(\B{x})) & =\log\left(\sqrt{\frac{|\B{A}|}{(2\pi)^{D}}}\right)-\frac{1}{2}(\B{x}-\B{x}_{0})^{T}\B{A}(\B{x}-\B{x}_{0}).
+\end{align}
+
+
+From this we can identify $\B{x}_{0}$ as the mean vector and $\B{A}$
+as the precision matrix of the Gaussian. We can also find the approximation
+for the normalisation constant:
+\begin{align}
+Z_{P} & \simeq\frac{P^{*}(\B{x}_{0})}{\sqrt{\frac{|\B{A}|}{(2\pi)^{D}}}}.
+\end{align}
+
+
+
+\section{Approximating a Gaussian Mixture with a Gaussian}
+
+From Koller \cite[pg 620]{Koller2009} we have (weak marginalisation):
+
+\begin{align}
+\mathbf{\mu}= & \sum_{i}w_{i}\mathbf{\mathbf{\mu}_{i}}\\
+\Sigma= & \sum_{i}w_{i}\Sigma_{i}+\sum_{i}w_{i}(\mathbf{\mu}_{i}-\mu)(\mathbf{\mu}_{i}-\mu)^{T}\nonumber \\
+= & \sum_{i}w_{i}\Sigma_{i}+\sum_{i}w_{i}\mathbf{\mu}_{i}\mathbf{\mu}_{i}^{T}-\mathbf{\mu}\mathbf{\mu}^{T}\label{eq:gauss_approx_gmm}
+\end{align}

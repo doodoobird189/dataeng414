@@ -1,0 +1,40 @@
+graph msgpassing {
+	rankdir = LR;
+	orientation = portrait;
+	size = "7.5,10.0";
+	newrank="true";
+
+	node [shape=plaintext]
+	ka [label=""]
+	la [label="vdotsa"]
+	ma [label=""]
+	{rank=source; ka; la, ma}
+
+	node [shape=ellipse]
+	Ca [label="Ca"]
+	{rank=same; Ca}
+
+	node [shape=box]
+	Sab [label="Sab"]
+	{rank=same; Sab}
+
+	node [shape=ellipse]
+	Cb [label="Cb"]
+	{rank=same; Cb}
+
+	node [shape=plaintext]
+	kb [label=""]
+	lb [label="vdotsb"]
+	mb [label=""]
+	{rank=sink; kb; lb, mb}
+
+	ka -- Ca
+	la -- Ca [style="dashed"; penwidth=0; color="white"; label="~b,a"]
+	ma -- Ca
+	Ca -- Sab [label="mba"]
+	Sab -- Cb [label="mab"]
+	Cb -- kb
+	Cb -- lb [style="dashed"; penwidth=0; color="white"; label="~a,b"]
+	Cb -- mb
+
+}

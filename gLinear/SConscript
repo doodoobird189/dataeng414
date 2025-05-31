@@ -1,0 +1,106 @@
+import os
+
+Import(['env'])
+
+def libname(lib):
+    if env['buildtype'] == 'debug':
+        return lib + 'd'
+    else:
+        return lib
+    pass
+
+glinear_sources = [
+    'gError.cc',
+    'gIndexRange.cc',
+    'gLapackWrap.cc',
+    'gLinearMacros.cc',
+    ]
+
+glinear_includes = [
+    'gColVector.h',
+    'gCppTraits.h',
+    'gError.h',
+    'gFortranTraits.h',
+    'gIndexRange.h',
+    'gLapackHeaders.h',
+    'gLapackWrap.h',
+    'gLinear.h',
+    'gLinearAlgo.h',
+    'gLinearFunctors.h',
+    'gLinearMacros.h',
+    'gLinearMem.h',
+    'gMatrix.h',
+    'gMatrixBase.h',
+    'gMatrixCore.h',
+    'gMatrixIterator.h',
+    'gMatrixMemBase.h',
+    'gMatrixOpers.h',
+    'gMatrixTraits.h',
+    'gRowVector.h',
+    'gVectorBase.h',
+    'gVectorCore.h',
+    'gVectorIterator.h',
+    'gVectorMemBase.h',
+    'gVectorOpers.h',
+    'gVectorTraits.h',
+    'Matrix.h',
+    'matrix_funcs.h',
+    'Vector.h',
+    'vector_funcs.h',
+    'gColVector.tcc',
+    'gFortranTraits.tcc',
+    'gLapackWrap.tcc',
+    'gLinearAlgo.tcc',
+    'gLinearFunctors.tcc',
+    'gLinearMem.tcc',
+    'gMatrix.tcc',
+    'gMatrixBase.tcc',
+    'gMatrixCore.tcc',
+    'gMatrixIterator.tcc',
+    'gMatrixMemBase.tcc',
+    'gMatrixOpers.tcc',
+    'gRowVector.tcc',
+    'gVectorBase.tcc',
+    'gVectorCore.tcc',
+    'gVectorIterator.tcc',
+    'gVectorMemBase.tcc',
+    'gVectorOpers.tcc',
+    'vector_funcs.tcc'
+    ]
+
+glin_env = env.Copy()
+
+if env['buildenv'] == 'gcclinux':
+    glin_env.Append(LIBS=['lapack', 'blas', 'g2c'])
+elif env['buildenv'] == 'gcc4linux':
+    glin_env.Append(LIBS=['lapack', 'blas'])
+elif env['buildenv'] in ['msvc','msvs']:
+    glin_env.Append(LIBS=['blas', 'lapack', 'f2c'])
+    pass
+
+glin_lib = glin_env.Library(libname('gLinear'), glinear_sources)
+env.Default(glin_lib)
+env.Alias('libs', glin_lib)
+if env.has_key('installprefix'):
+    i = env.Install(env['installprefixlib'], source=[glin_lib])
+    env.Alias('installlibs', i)
+    include_dir = os.path.join(env['installprefixinc'], 'gLinear')
+    j = env.Install(dir=os.path.join(include_dir), source=glinear_includes)
+    env.Alias('installlibs', j)
+    pass
+
+p = glin_env.Program('testnew', ['testnew.cc', glin_lib])
+env.Default(p)
+env.Alias('tests', p)
+env.Alias('testnew', p)
+if env['buildenv'] == 'msvc':
+    target = 'testnew%s' % env['MSVSPROJECTSUFFIX']
+    srcs = ['testnew.cc'] + glinear_sources + glinear_includes
+    sln = env.MSVSProject(target=target,
+                          srcs=srcs,
+                          buildtarget=p,
+                          variant='SCons')
+    env.Default(sln)
+    env.Alias('tests', sln)
+    env.Alias('testnew', sln)
+    pass

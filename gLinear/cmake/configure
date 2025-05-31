@@ -1,0 +1,242 @@
+#!/bin/bash
+# front-end script to simplify building CMake projects for multiple targets
+
+# exit on errors
+set -e
+
+# usage info
+usage() {
+    cat <<EOF
+
+Usage:
+  $(basename $0) [-dfhiprs] [-a arch] [-b build-rel-path] [-c cmake-args] [-g build-config] [-j make-jobs] [-v sdk-version] [-x target-platform]
+Options:
+  -a arch    the target architecture, specify u for universal binaries 
+  -b path    build path relative to source dir (default .)
+  -c args    forward arguments to CMake
+  -d         generate IDE project instead of Makefiles, default is Xcode on Mac OS X and MSVC on Windows
+  -f         force removal of build destination prior to building
+  -g config  specify build configuration: Debug (default), Release, RelWithDebInfo, MinSizeRel
+  -h         display this message
+  -i         enable index checking (slow)
+  -j jobs    run make after CMake configuration with specified number of jobs (Unix Makefiles only)
+  -p         compile python bindings (requires swig and python dev package) (nyi)
+  -r         sign code for distribution (iOS only)
+  -s         compile static libraries
+  -v version platform SDK version (iOS and Android only)
+  -x target  target platform [ios|simios|android]
+
+EOF
+    exit
+}
+
+CMAKE_SHARE=$(cd `dirname $0`; echo $PWD)
+
+HOST_OS=$(uname -s)
+HOST_ARCH=$(uname -m)
+
+UNIX_MAKE=on
+FORCE_CLEAN=off
+PYTHON_WRAP=off
+BUILD_REL_PATH=.
+SOURCE_REL_PATH=.
+MAKE_JOBS=3
+BUILD_CONFIG=Debug
+CMAKE_BIN=cmake
+
+CMAKE_ARGS=
+
+# SDK_VERSION for cross-compilation
+SDK_VERSION=6.0
+
+CMAKE_ARGS+=" -DCMAKE_MODULE_PATH:STRING=$CMAKE_SHARE/Modules"
+
+# process command line switches
+set -- `getopt a:b:c:dfg:hij:knprsv:x: "$@"`
+[ $# -lt 1 ] && exit 1	# getopt failed
+while [ $# -gt 0 ]
+do
+    case "$1" in
+        -a) USER_ARCH="$2"; shift;;
+        -b) BUILD_REL_PATH="$2"; shift;;
+        -c) CMAKE_ARGS+=" $2"; shift;;
+        -d) UNIX_MAKE=off;;
+        -f) FORCE_CLEAN=on;;
+        -g) BUILD_CONFIG="$2"; shift;;
+        -h) usage;;
+        -i) CMAKE_BIN=ccmake;;
+        -j) MAKE_JOBS="$2"; shift;;
+        -k) CMAKE_ARGS+=" -DINDEX_CHECKING:BOOL=ON";;
+        -n) CMAKE_ARGS+=" -DSWIG_WRAP_JAVA:BOOL=ON";;
+        -p) CMAKE_ARGS+=" -DSWIG_WRAP_PYTHON:BOOL=ON";;
+        -r) CMAKE_ARGS+=" -DSIGN_FOR_DISTRIBUTION:BOOL=ON";;
+        -s) CMAKE_ARGS+=" -DBUILD_SHARED_LIBS:BOOL=OFF";;
+        -x) TARGET_PLATFORM="$2"; shift;;
+        -v) SDK_VERSION="$2"; shift;;
+        --) shift; break;;
+        -*) usage;;
+        *)  break;;
+    esac
+shift
+done
+
+#
+cd $SOURCE_REL_PATH
+if ! test -s CMakeLists.txt;  then
+    echo "Error:"
+    echo "  CMakeLists.txt not found in $PWD"
+    echo "Resolution:"
+    echo -n "  Re-run from a project directory containing a top-level CMakeLists.txt file"
+    usage
+    # exit
+fi
+SRC_DIR=$PWD
+PROJECT=$(basename $SRC_DIR)
+
+# platform specifics
+if [ "$TARGET_PLATFORM" == "ios" ]; then
+    CMAKE_ARGS+=" -DDEPLOYMENT_VERSION=5.1"
+    CMAKE_ARGS+=" -DSDK_VERSION=$SDK_VERSION"
+    CMAKE_ARGS+=" -DBUILD_SHARED_LIBS:BOOL=OFF"
+    CMAKE_ARGS+=" -DCMAKE_TOOLCHAIN_FILE=$CMAKE_SHARE/Toolchains/iPhone-toolchain.cmake"
+    CMAKE_ARGS+=" -DWANT_PORTAUDIO:BOOL=OFF"
+    CMAKE_ARGS+=" -DWANT_SPTK:BOOL=OFF"
+    CMAKE_ARGS+=" -DWANT_FLITE:BOOL=OFF"
+    CMAKE_ARGS+=" -DWANT_GLUPLOT:BOOL=OFF"
+
+    UNIX_MAKE=off
+    TARGET_OS=iOS-$SDK_VERSION
+    TARGET_ARCH="armv6"
+    UNIVERSAL_ARCH="\$(ARCHS_STANDARD_32_BIT)"
+    CMAKE_ARGS+=" -DPROJECT_TITLE:STRING=$PROJECT"
+elif [ "$TARGET_PLATFORM" == "simios" ]; then
+    CMAKE_ARGS+=" -DDEPLOYMENT_VERSION=$SDK_VERSION"
+    CMAKE_ARGS+=" -DSDK_VERSION=$SDK_VERSION"
+    CMAKE_ARGS+=" -DBUILD_SHARED_LIBS:BOOL=OFF"
+    CMAKE_ARGS+=" -DCMAKE_TOOLCHAIN_FILE=$CMAKE_SHARE/Toolchains/iPhoneSimulator-toolchain.cmake"
+    CMAKE_ARGS+=" -DWANT_PORTAUDIO:BOOL=OFF"
+    CMAKE_ARGS+=" -DWANT_SPTK:BOOL=OFF"
+    CMAKE_ARGS+=" -DWANT_FLITE:BOOL=OFF"
+    CMAKE_ARGS+=" -DWANT_GLUPLOT:BOOL=OFF"
+
+    UNIX_MAKE=off
+    TARGET_OS=iOS-sim-$SDK_VERSION
+    TARGET_ARCH=$HOST_ARCH
+    UNIVERSAL_ARCH="armv6;armv7;i386;x86_64"
+    CMAKE_ARGS+=" -DPROJECT_TITLE:STRING=$PROJECT"
+elif [ "$TARGET_PLATFORM" == "android" ]; then
+    echo "android NYI"
+    exit
+else
+    TARGET_OS=$HOST_OS
+    TARGET_ARCH=$HOST_ARCH
+    UNIVERSAL_ARCH="i386;x86_64"
+fi
+
+# architecture
+if [ "$USER_ARCH" == "u" ]; then
+    TARGET_ARCH=universal
+    CMAKE_ARGS+=" -DCMAKE_OSX_ARCHITECTURES:STRING=$UNIVERSAL_ARCH"
+else
+    if [ "$USER_ARCH" != "" ]; then TARGET_ARCH=$USER_ARCH; fi
+    CMAKE_ARGS+=" -DCMAKE_OSX_ARCHITECTURES:STRING=$TARGET_ARCH"
+fi
+
+if [ "$UNIX_MAKE" == "on" ]; then
+    GENERATOR="Unix Makefiles"
+    CMAKE_ARGS+=" -DCMAKE_BUILD_TYPE:STRING=$BUILD_CONFIG"
+else
+    GENERATOR="Xcode"
+    CMAKE_ARGS+=" -GXcode"
+    BUILD_CONFIG=Xcode
+fi
+
+PLATFORM=$TARGET_OS-$BUILD_CONFIG-$TARGET_ARCH
+REL_BIN_DIR=$BUILD_REL_PATH/build/$PLATFORM
+if [ "$BUILD_REL_PATH" == "." ]; then
+   REL_BIN_DIR=build/$PLATFORM
+fi
+BIN_DIR=$SRC_DIR/$REL_BIN_DIR
+if [ "$FORCE_CLEAN" == "on" ]; then
+    rm -rf $BIN_DIR
+fi
+mkdir -p $BIN_DIR
+cd $BIN_DIR
+BIN_DIR=$PWD
+
+CMAKE_ARGS+=" -DTARGET_PLATFORM:STRING=$PLATFORM"
+
+if [ "$(which $CMAKE_BIN)" == "" ]; then
+    cat<<EOF
+
+Error: CMake executable '$CMAKE_BIN' not found in your path.
+
+EOF
+    if [ "$TARGET_OS" == "Linux" ]; then
+        cat <<EOF
+Install cmake and ccmake using your distribution's package manager,
+e.g:
+
+    sudo apt-get install cmake cmake-curses-gui
+
+EOF
+    elif [ "$TARGET_OS" == "Darwin" ]; then
+        cat <<EOF
+Download and install the latest binary distribution of CMake for your
+OS:
+
+   http://cmake.org/cmake/resources/software.html
+
+EOF
+    fi
+    exit 1
+fi
+
+echo
+echo "-- Configuring with CMake ..."
+$CMAKE_BIN $CMAKE_ARGS $SRC_DIR
+
+cat <<EOF
+
+== $(basename $0) status ...
+== Project   : $PROJECT
+== Platform  : $PLATFORM
+== Source    : $SRC_DIR
+== Binary    : $BIN_DIR
+== Generator : $GENERATOR
+
+## Successfully configured using the CMake command-line:
+
+    cd $REL_BIN_DIR
+    $CMAKE_BIN $CMAKE_ARGS $SRC_DIR
+
+EOF
+
+INSTALL_COMMAND="make install"
+if [ "$TARGET_OS" == "Linux" ]; then
+    if [ "$(stat -c %U /usr/local)" == "root" ]; then
+        # root owns /usr/local, add sudo to install command
+        INSTALL_COMMAND="sudo $INSTALL_COMMAND"
+    fi
+elif [ "$TARGET_OS" == "Darwin" ]; then
+    if [ "$(id -un `stat -f %u /usr/bin`)" == "root" ]; then
+        # root owns /usr/local, add sudo to install command
+        INSTALL_COMMAND="sudo $INSTALL_COMMAND"
+    fi
+fi
+
+if [ "$UNIX_MAKE" == "on" ]; then
+    BUILD_HINT="
+    cd $REL_BIN_DIR
+    make -j$MAKE_JOBS
+    $INSTALL_COMMAND"
+else
+    BUILD_HINT="
+    open $REL_BIN_DIR/$PROJECT.xcodeproj"
+fi
+
+cat <<EOF
+## To continue the build process run the following command(s):
+$BUILD_HINT
+
+EOF

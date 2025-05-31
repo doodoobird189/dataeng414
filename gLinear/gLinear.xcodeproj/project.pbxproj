@@ -1,0 +1,514 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F5F6AAAE1418A54E00F9B483 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5915958141504C40029C485 /* Foundation.framework */; };
+		F5F6AABA1418A57500F9B483 /* gError.cc in Sources */ = {isa = PBXBuildFile; fileRef = 596C50596C50596C50000000 /* gError.cc */; };
+		F5F6AABB1418A57500F9B483 /* gIndexRange.cc in Sources */ = {isa = PBXBuildFile; fileRef = 597C90597C90597C90000000 /* gIndexRange.cc */; };
+		F5F6AABC1418A57500F9B483 /* gLapackWrap.cc in Sources */ = {isa = PBXBuildFile; fileRef = 598790598790598790000000 /* gLapackWrap.cc */; };
+		F5F6AABD1418A57500F9B483 /* gLinearAlloc.cc in Sources */ = {isa = PBXBuildFile; fileRef = 599290599290599290000000 /* gLinearAlloc.cc */; };
+		F5F6AABE1418A57500F9B483 /* gLinearMacros.cc in Sources */ = {isa = PBXBuildFile; fileRef = 599D90599D90599D90000000 /* gLinearMacros.cc */; };
+		F5F6AABF1418A57500F9B483 /* matrix_funcs.cc in Sources */ = {isa = PBXBuildFile; fileRef = 59A89059A89059A890000000 /* matrix_funcs.cc */; };
+		F5F6AAC01418A58200F9B483 /* Matrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A8DB05A8DB05A8DB0000000 /* Matrix.h */; };
+		F5F6AAC11418A58200F9B483 /* Vector.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A98B05A98B05A98B0000000 /* Vector.h */; };
+		F5F6AAC21418A58200F9B483 /* exceptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AA3805AA3805AA380000000 /* exceptions.h */; };
+		F5F6AAC31418A58200F9B483 /* gColVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AAE805AAE805AAE80000000 /* gColVector.h */; };
+		F5F6AAC41418A58200F9B483 /* gCppTraits.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AB9805AB9805AB980000000 /* gCppTraits.h */; };
+		F5F6AAC51418A58200F9B483 /* gError.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AC4705AC4705AC470000000 /* gError.h */; };
+		F5F6AAC61418A58200F9B483 /* gFortranTraits.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ACF805ACF805ACF80000000 /* gFortranTraits.h */; };
+		F5F6AAC71418A58200F9B483 /* gIndexRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ADA805ADA805ADA80000000 /* gIndexRange.h */; };
+		F5F6AAC81418A58200F9B483 /* gLapackHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AE5505AE5505AE550000000 /* gLapackHeaders.h */; };
+		F5F6AAC91418A58200F9B483 /* gLapackWrap.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AF0A05AF0A05AF0A0000000 /* gLapackWrap.h */; };
+		F5F6AACA1418A58200F9B483 /* gLinear.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AFB705AFB705AFB70000000 /* gLinear.h */; };
+		F5F6AACB1418A58200F9B483 /* gLinearAlgo.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B06705B06705B0670000000 /* gLinearAlgo.h */; };
+		F5F6AACC1418A58200F9B483 /* gLinearAlloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B11405B11405B1140000000 /* gLinearAlloc.h */; };
+		F5F6AACD1418A58200F9B483 /* gLinearFunctors.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B1C405B1C405B1C40000000 /* gLinearFunctors.h */; };
+		F5F6AACE1418A58200F9B483 /* gLinearMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B27105B27105B2710000000 /* gLinearMacros.h */; };
+		F5F6AACF1418A58200F9B483 /* gLinearMem.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B32105B32105B3210000000 /* gLinearMem.h */; };
+		F5F6AAD01418A58200F9B483 /* gMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B3CE05B3CE05B3CE0000000 /* gMatrix.h */; };
+		F5F6AAD11418A58200F9B483 /* gMatrixBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B47B05B47B05B47B0000000 /* gMatrixBase.h */; };
+		F5F6AAD21418A58200F9B483 /* gMatrixCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B53405B53405B5340000000 /* gMatrixCore.h */; };
+		F5F6AAD31418A58200F9B483 /* gMatrixIterator.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B5E405B5E405B5E40000000 /* gMatrixIterator.h */; };
+		F5F6AAD41418A58200F9B483 /* gMatrixMemBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B69105B69105B6910000000 /* gMatrixMemBase.h */; };
+		F5F6AAD51418A58200F9B483 /* gMatrixOpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B74105B74105B7410000000 /* gMatrixOpers.h */; };
+		F5F6AAD61418A58200F9B483 /* gMatrixTraits.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B7EE05B7EE05B7EE0000000 /* gMatrixTraits.h */; };
+		F5F6AAD71418A58200F9B483 /* gRowVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B89E05B89E05B89E0000000 /* gRowVector.h */; };
+		F5F6AAD81418A58200F9B483 /* gVectorBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B94B05B94B05B94B0000000 /* gVectorBase.h */; };
+		F5F6AAD91418A58200F9B483 /* gVectorCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B9FB05B9FB05B9FB0000000 /* gVectorCore.h */; };
+		F5F6AADA1418A58200F9B483 /* gVectorIterator.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BAA805BAA805BAA80000000 /* gVectorIterator.h */; };
+		F5F6AADB1418A58200F9B483 /* gVectorMemBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BB5805BB5805BB580000000 /* gVectorMemBase.h */; };
+		F5F6AADC1418A58200F9B483 /* gVectorOpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC0505BC0505BC050000000 /* gVectorOpers.h */; };
+		F5F6AADD1418A58200F9B483 /* gVectorTraits.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BCB505BCB505BCB50000000 /* gVectorTraits.h */; };
+		F5F6AADE1418A58200F9B483 /* matrix_funcs.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BD6205BD6205BD620000000 /* matrix_funcs.h */; };
+		F5F6AADF1418A58200F9B483 /* vector_funcs.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BE1205BE1205BE120000000 /* vector_funcs.h */; };
+		F5F6AAE01418A58200F9B483 /* gColVector.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 59B3A059B3A059B3A0000000 /* gColVector.tcc */; };
+		F5F6AAE11418A58200F9B483 /* gFortranTraits.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 59BEA059BEA059BEA0000000 /* gFortranTraits.tcc */; };
+		F5F6AAE21418A58200F9B483 /* gLapackWrap.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 59C99059C99059C990000000 /* gLapackWrap.tcc */; };
+		F5F6AAE31418A58200F9B483 /* gLinearAlgo.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 59D48059D48059D480000000 /* gLinearAlgo.tcc */; };
+		F5F6AAE41418A58200F9B483 /* gLinearFunctors.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 59DF7059DF7059DF70000000 /* gLinearFunctors.tcc */; };
+		F5F6AAE51418A58200F9B483 /* gLinearMem.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 59EA4059EA4059EA40000000 /* gLinearMem.tcc */; };
+		F5F6AAE61418A58200F9B483 /* gMatrix.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 59F53059F53059F530000000 /* gMatrix.tcc */; };
+		F5F6AAE71418A58200F9B483 /* gMatrixBase.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 5A00005A00005A0000000000 /* gMatrixBase.tcc */; };
+		F5F6AAE81418A58200F9B483 /* gMatrixCore.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 5A0AF05A0AF05A0AF0000000 /* gMatrixCore.tcc */; };
+		F5F6AAE91418A58200F9B483 /* gMatrixIterator.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 5A15C05A15C05A15C0000000 /* gMatrixIterator.tcc */; };
+		F5F6AAEA1418A58200F9B483 /* gMatrixMemBase.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 5A20B05A20B05A20B0000000 /* gMatrixMemBase.tcc */; };
+		F5F6AAEB1418A58200F9B483 /* gMatrixOpers.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 5A2B805A2B805A2B80000000 /* gMatrixOpers.tcc */; };
+		F5F6AAEC1418A58200F9B483 /* gRowVector.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 5A36705A36705A3670000000 /* gRowVector.tcc */; };
+		F5F6AAED1418A58200F9B483 /* gVectorBase.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 5A41405A41405A4140000000 /* gVectorBase.tcc */; };
+		F5F6AAEE1418A58200F9B483 /* gVectorCore.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 5A4C305A4C305A4C30000000 /* gVectorCore.tcc */; };
+		F5F6AAEF1418A58200F9B483 /* gVectorIterator.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 5A57705A57705A5770000000 /* gVectorIterator.tcc */; };
+		F5F6AAF01418A58200F9B483 /* gVectorMemBase.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 5A62305A62305A6230000000 /* gVectorMemBase.tcc */; };
+		F5F6AAF11418A58200F9B483 /* gVectorOpers.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 5A6D205A6D205A6D20000000 /* gVectorOpers.tcc */; };
+		F5F6AAF21418A58200F9B483 /* matrix_funcs.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 5A77F05A77F05A77F0000000 /* matrix_funcs.tcc */; };
+		F5F6AAF31418A58200F9B483 /* vector_funcs.tcc in Headers */ = {isa = PBXBuildFile; fileRef = 5A82E05A82E05A82E0000000 /* vector_funcs.tcc */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		596C50596C50596C50000000 /* gError.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gError.cc; sourceTree = SOURCE_ROOT; };
+		597C90597C90597C90000000 /* gIndexRange.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gIndexRange.cc; sourceTree = SOURCE_ROOT; };
+		598790598790598790000000 /* gLapackWrap.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gLapackWrap.cc; sourceTree = SOURCE_ROOT; };
+		599290599290599290000000 /* gLinearAlloc.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gLinearAlloc.cc; sourceTree = SOURCE_ROOT; };
+		599D90599D90599D90000000 /* gLinearMacros.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gLinearMacros.cc; sourceTree = SOURCE_ROOT; };
+		59A89059A89059A890000000 /* matrix_funcs.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix_funcs.cc; sourceTree = SOURCE_ROOT; };
+		59B3A059B3A059B3A0000000 /* gColVector.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gColVector.tcc; sourceTree = SOURCE_ROOT; };
+		59BEA059BEA059BEA0000000 /* gFortranTraits.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gFortranTraits.tcc; sourceTree = SOURCE_ROOT; };
+		59C99059C99059C990000000 /* gLapackWrap.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gLapackWrap.tcc; sourceTree = SOURCE_ROOT; };
+		59D48059D48059D480000000 /* gLinearAlgo.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gLinearAlgo.tcc; sourceTree = SOURCE_ROOT; };
+		59DF7059DF7059DF70000000 /* gLinearFunctors.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gLinearFunctors.tcc; sourceTree = SOURCE_ROOT; };
+		59EA4059EA4059EA40000000 /* gLinearMem.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gLinearMem.tcc; sourceTree = SOURCE_ROOT; };
+		59F53059F53059F530000000 /* gMatrix.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gMatrix.tcc; sourceTree = SOURCE_ROOT; };
+		5A00005A00005A0000000000 /* gMatrixBase.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gMatrixBase.tcc; sourceTree = SOURCE_ROOT; };
+		5A0AF05A0AF05A0AF0000000 /* gMatrixCore.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gMatrixCore.tcc; sourceTree = SOURCE_ROOT; };
+		5A15C05A15C05A15C0000000 /* gMatrixIterator.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gMatrixIterator.tcc; sourceTree = SOURCE_ROOT; };
+		5A20B05A20B05A20B0000000 /* gMatrixMemBase.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gMatrixMemBase.tcc; sourceTree = SOURCE_ROOT; };
+		5A2B805A2B805A2B80000000 /* gMatrixOpers.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gMatrixOpers.tcc; sourceTree = SOURCE_ROOT; };
+		5A36705A36705A3670000000 /* gRowVector.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gRowVector.tcc; sourceTree = SOURCE_ROOT; };
+		5A41405A41405A4140000000 /* gVectorBase.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gVectorBase.tcc; sourceTree = SOURCE_ROOT; };
+		5A4C305A4C305A4C30000000 /* gVectorCore.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gVectorCore.tcc; sourceTree = SOURCE_ROOT; };
+		5A57705A57705A5770000000 /* gVectorIterator.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gVectorIterator.tcc; sourceTree = SOURCE_ROOT; };
+		5A62305A62305A6230000000 /* gVectorMemBase.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gVectorMemBase.tcc; sourceTree = SOURCE_ROOT; };
+		5A6D205A6D205A6D20000000 /* gVectorOpers.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = gVectorOpers.tcc; sourceTree = SOURCE_ROOT; };
+		5A77F05A77F05A77F0000000 /* matrix_funcs.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = matrix_funcs.tcc; sourceTree = SOURCE_ROOT; };
+		5A82E05A82E05A82E0000000 /* vector_funcs.tcc */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = vector_funcs.tcc; sourceTree = SOURCE_ROOT; };
+		5A8DB05A8DB05A8DB0000000 /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = SOURCE_ROOT; };
+		5A98B05A98B05A98B0000000 /* Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector.h; sourceTree = SOURCE_ROOT; };
+		5AA3805AA3805AA380000000 /* exceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exceptions.h; sourceTree = SOURCE_ROOT; };
+		5AAE805AAE805AAE80000000 /* gColVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gColVector.h; sourceTree = SOURCE_ROOT; };
+		5AB9805AB9805AB980000000 /* gCppTraits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gCppTraits.h; sourceTree = SOURCE_ROOT; };
+		5AC4705AC4705AC470000000 /* gError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gError.h; sourceTree = SOURCE_ROOT; };
+		5ACF805ACF805ACF80000000 /* gFortranTraits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gFortranTraits.h; sourceTree = SOURCE_ROOT; };
+		5ADA805ADA805ADA80000000 /* gIndexRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gIndexRange.h; sourceTree = SOURCE_ROOT; };
+		5AE5505AE5505AE550000000 /* gLapackHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gLapackHeaders.h; sourceTree = SOURCE_ROOT; };
+		5AF0A05AF0A05AF0A0000000 /* gLapackWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gLapackWrap.h; sourceTree = SOURCE_ROOT; };
+		5AFB705AFB705AFB70000000 /* gLinear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gLinear.h; sourceTree = SOURCE_ROOT; };
+		5B06705B06705B0670000000 /* gLinearAlgo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gLinearAlgo.h; sourceTree = SOURCE_ROOT; };
+		5B11405B11405B1140000000 /* gLinearAlloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gLinearAlloc.h; sourceTree = SOURCE_ROOT; };
+		5B1C405B1C405B1C40000000 /* gLinearFunctors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gLinearFunctors.h; sourceTree = SOURCE_ROOT; };
+		5B27105B27105B2710000000 /* gLinearMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gLinearMacros.h; sourceTree = SOURCE_ROOT; };
+		5B32105B32105B3210000000 /* gLinearMem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gLinearMem.h; sourceTree = SOURCE_ROOT; };
+		5B3CE05B3CE05B3CE0000000 /* gMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gMatrix.h; sourceTree = SOURCE_ROOT; };
+		5B47B05B47B05B47B0000000 /* gMatrixBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gMatrixBase.h; sourceTree = SOURCE_ROOT; };
+		5B53405B53405B5340000000 /* gMatrixCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gMatrixCore.h; sourceTree = SOURCE_ROOT; };
+		5B5E405B5E405B5E40000000 /* gMatrixIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gMatrixIterator.h; sourceTree = SOURCE_ROOT; };
+		5B69105B69105B6910000000 /* gMatrixMemBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gMatrixMemBase.h; sourceTree = SOURCE_ROOT; };
+		5B74105B74105B7410000000 /* gMatrixOpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gMatrixOpers.h; sourceTree = SOURCE_ROOT; };
+		5B7EE05B7EE05B7EE0000000 /* gMatrixTraits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gMatrixTraits.h; sourceTree = SOURCE_ROOT; };
+		5B89E05B89E05B89E0000000 /* gRowVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gRowVector.h; sourceTree = SOURCE_ROOT; };
+		5B94B05B94B05B94B0000000 /* gVectorBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gVectorBase.h; sourceTree = SOURCE_ROOT; };
+		5B9FB05B9FB05B9FB0000000 /* gVectorCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gVectorCore.h; sourceTree = SOURCE_ROOT; };
+		5BAA805BAA805BAA80000000 /* gVectorIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gVectorIterator.h; sourceTree = SOURCE_ROOT; };
+		5BB5805BB5805BB580000000 /* gVectorMemBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gVectorMemBase.h; sourceTree = SOURCE_ROOT; };
+		5BC0505BC0505BC050000000 /* gVectorOpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gVectorOpers.h; sourceTree = SOURCE_ROOT; };
+		5BCB505BCB505BCB50000000 /* gVectorTraits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gVectorTraits.h; sourceTree = SOURCE_ROOT; };
+		5BD6205BD6205BD620000000 /* matrix_funcs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix_funcs.h; sourceTree = SOURCE_ROOT; };
+		5BE1205BE1205BE120000000 /* vector_funcs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector_funcs.h; sourceTree = SOURCE_ROOT; };
+		F5915958141504C40029C485 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F591595C141504C40029C485 /* gLinear-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "gLinear-Info.plist"; sourceTree = "<group>"; };
+		F591595E141504C40029C485 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F5915960141504C40029C485 /* gLinear-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "gLinear-Prefix.pch"; sourceTree = "<group>"; };
+		F5F6AAAD1418A54E00F9B483 /* libgLinear.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libgLinear.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F5F6AAAA1418A54E00F9B483 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5F6AAAE1418A54E00F9B483 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		587710587710587710000000 = {
+			isa = PBXGroup;
+			children = (
+				F591595A141504C40029C485 /* gLinear */,
+				F5915957141504C40029C485 /* Frameworks */,
+				588EC0588EC0588EC0000000 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		588EC0588EC0588EC0000000 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F5F6AAAD1418A54E00F9B483 /* libgLinear.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		589480589480589480000000 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				596C50596C50596C50000000 /* gError.cc */,
+				597C90597C90597C90000000 /* gIndexRange.cc */,
+				598790598790598790000000 /* gLapackWrap.cc */,
+				599290599290599290000000 /* gLinearAlloc.cc */,
+				599D90599D90599D90000000 /* gLinearMacros.cc */,
+				59A89059A89059A890000000 /* matrix_funcs.cc */,
+			);
+			name = "Source Files";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		58A70058A70058A700000000 /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				5A8DB05A8DB05A8DB0000000 /* Matrix.h */,
+				5A98B05A98B05A98B0000000 /* Vector.h */,
+				5AA3805AA3805AA380000000 /* exceptions.h */,
+				5AAE805AAE805AAE80000000 /* gColVector.h */,
+				5AB9805AB9805AB980000000 /* gCppTraits.h */,
+				5AC4705AC4705AC470000000 /* gError.h */,
+				5ACF805ACF805ACF80000000 /* gFortranTraits.h */,
+				5ADA805ADA805ADA80000000 /* gIndexRange.h */,
+				5AE5505AE5505AE550000000 /* gLapackHeaders.h */,
+				5AF0A05AF0A05AF0A0000000 /* gLapackWrap.h */,
+				5AFB705AFB705AFB70000000 /* gLinear.h */,
+				5B06705B06705B0670000000 /* gLinearAlgo.h */,
+				5B11405B11405B1140000000 /* gLinearAlloc.h */,
+				5B1C405B1C405B1C40000000 /* gLinearFunctors.h */,
+				5B27105B27105B2710000000 /* gLinearMacros.h */,
+				5B32105B32105B3210000000 /* gLinearMem.h */,
+				5B3CE05B3CE05B3CE0000000 /* gMatrix.h */,
+				5B47B05B47B05B47B0000000 /* gMatrixBase.h */,
+				5B53405B53405B5340000000 /* gMatrixCore.h */,
+				5B5E405B5E405B5E40000000 /* gMatrixIterator.h */,
+				5B69105B69105B6910000000 /* gMatrixMemBase.h */,
+				5B74105B74105B7410000000 /* gMatrixOpers.h */,
+				5B7EE05B7EE05B7EE0000000 /* gMatrixTraits.h */,
+				5B89E05B89E05B89E0000000 /* gRowVector.h */,
+				5B94B05B94B05B94B0000000 /* gVectorBase.h */,
+				5B9FB05B9FB05B9FB0000000 /* gVectorCore.h */,
+				5BAA805BAA805BAA80000000 /* gVectorIterator.h */,
+				5BB5805BB5805BB580000000 /* gVectorMemBase.h */,
+				5BC0505BC0505BC050000000 /* gVectorOpers.h */,
+				5BCB505BCB505BCB50000000 /* gVectorTraits.h */,
+				5BD6205BD6205BD620000000 /* matrix_funcs.h */,
+				5BE1205BE1205BE120000000 /* vector_funcs.h */,
+			);
+			name = "Header Files";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		F5915957141504C40029C485 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F5915958141504C40029C485 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F591595A141504C40029C485 /* gLinear */ = {
+			isa = PBXGroup;
+			children = (
+				F591595B141504C40029C485 /* Supporting Files */,
+				589480589480589480000000 /* Source Files */,
+				58A70058A70058A700000000 /* Header Files */,
+				59B3A059B3A059B3A0000000 /* gColVector.tcc */,
+				59BEA059BEA059BEA0000000 /* gFortranTraits.tcc */,
+				59C99059C99059C990000000 /* gLapackWrap.tcc */,
+				59D48059D48059D480000000 /* gLinearAlgo.tcc */,
+				59DF7059DF7059DF70000000 /* gLinearFunctors.tcc */,
+				59EA4059EA4059EA40000000 /* gLinearMem.tcc */,
+				59F53059F53059F530000000 /* gMatrix.tcc */,
+				5A00005A00005A0000000000 /* gMatrixBase.tcc */,
+				5A0AF05A0AF05A0AF0000000 /* gMatrixCore.tcc */,
+				5A15C05A15C05A15C0000000 /* gMatrixIterator.tcc */,
+				5A20B05A20B05A20B0000000 /* gMatrixMemBase.tcc */,
+				5A2B805A2B805A2B80000000 /* gMatrixOpers.tcc */,
+				5A36705A36705A3670000000 /* gRowVector.tcc */,
+				5A41405A41405A4140000000 /* gVectorBase.tcc */,
+				5A4C305A4C305A4C30000000 /* gVectorCore.tcc */,
+				5A57705A57705A5770000000 /* gVectorIterator.tcc */,
+				5A62305A62305A6230000000 /* gVectorMemBase.tcc */,
+				5A6D205A6D205A6D20000000 /* gVectorOpers.tcc */,
+				5A77F05A77F05A77F0000000 /* matrix_funcs.tcc */,
+				5A82E05A82E05A82E0000000 /* vector_funcs.tcc */,
+			);
+			path = gLinear;
+			sourceTree = "<group>";
+		};
+		F591595B141504C40029C485 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F591595C141504C40029C485 /* gLinear-Info.plist */,
+				F591595D141504C40029C485 /* InfoPlist.strings */,
+				F5915960141504C40029C485 /* gLinear-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F5F6AAAB1418A54E00F9B483 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5F6AAC01418A58200F9B483 /* Matrix.h in Headers */,
+				F5F6AAC11418A58200F9B483 /* Vector.h in Headers */,
+				F5F6AAC21418A58200F9B483 /* exceptions.h in Headers */,
+				F5F6AAC31418A58200F9B483 /* gColVector.h in Headers */,
+				F5F6AAC41418A58200F9B483 /* gCppTraits.h in Headers */,
+				F5F6AAC51418A58200F9B483 /* gError.h in Headers */,
+				F5F6AAC61418A58200F9B483 /* gFortranTraits.h in Headers */,
+				F5F6AAC71418A58200F9B483 /* gIndexRange.h in Headers */,
+				F5F6AAC81418A58200F9B483 /* gLapackHeaders.h in Headers */,
+				F5F6AAC91418A58200F9B483 /* gLapackWrap.h in Headers */,
+				F5F6AACA1418A58200F9B483 /* gLinear.h in Headers */,
+				F5F6AACB1418A58200F9B483 /* gLinearAlgo.h in Headers */,
+				F5F6AACC1418A58200F9B483 /* gLinearAlloc.h in Headers */,
+				F5F6AACD1418A58200F9B483 /* gLinearFunctors.h in Headers */,
+				F5F6AACE1418A58200F9B483 /* gLinearMacros.h in Headers */,
+				F5F6AACF1418A58200F9B483 /* gLinearMem.h in Headers */,
+				F5F6AAD01418A58200F9B483 /* gMatrix.h in Headers */,
+				F5F6AAD11418A58200F9B483 /* gMatrixBase.h in Headers */,
+				F5F6AAD21418A58200F9B483 /* gMatrixCore.h in Headers */,
+				F5F6AAD31418A58200F9B483 /* gMatrixIterator.h in Headers */,
+				F5F6AAD41418A58200F9B483 /* gMatrixMemBase.h in Headers */,
+				F5F6AAD51418A58200F9B483 /* gMatrixOpers.h in Headers */,
+				F5F6AAD61418A58200F9B483 /* gMatrixTraits.h in Headers */,
+				F5F6AAD71418A58200F9B483 /* gRowVector.h in Headers */,
+				F5F6AAD81418A58200F9B483 /* gVectorBase.h in Headers */,
+				F5F6AAD91418A58200F9B483 /* gVectorCore.h in Headers */,
+				F5F6AADA1418A58200F9B483 /* gVectorIterator.h in Headers */,
+				F5F6AADB1418A58200F9B483 /* gVectorMemBase.h in Headers */,
+				F5F6AADC1418A58200F9B483 /* gVectorOpers.h in Headers */,
+				F5F6AADD1418A58200F9B483 /* gVectorTraits.h in Headers */,
+				F5F6AADE1418A58200F9B483 /* matrix_funcs.h in Headers */,
+				F5F6AADF1418A58200F9B483 /* vector_funcs.h in Headers */,
+				F5F6AAE01418A58200F9B483 /* gColVector.tcc in Headers */,
+				F5F6AAE11418A58200F9B483 /* gFortranTraits.tcc in Headers */,
+				F5F6AAE21418A58200F9B483 /* gLapackWrap.tcc in Headers */,
+				F5F6AAE31418A58200F9B483 /* gLinearAlgo.tcc in Headers */,
+				F5F6AAE41418A58200F9B483 /* gLinearFunctors.tcc in Headers */,
+				F5F6AAE51418A58200F9B483 /* gLinearMem.tcc in Headers */,
+				F5F6AAE61418A58200F9B483 /* gMatrix.tcc in Headers */,
+				F5F6AAE71418A58200F9B483 /* gMatrixBase.tcc in Headers */,
+				F5F6AAE81418A58200F9B483 /* gMatrixCore.tcc in Headers */,
+				F5F6AAE91418A58200F9B483 /* gMatrixIterator.tcc in Headers */,
+				F5F6AAEA1418A58200F9B483 /* gMatrixMemBase.tcc in Headers */,
+				F5F6AAEB1418A58200F9B483 /* gMatrixOpers.tcc in Headers */,
+				F5F6AAEC1418A58200F9B483 /* gRowVector.tcc in Headers */,
+				F5F6AAED1418A58200F9B483 /* gVectorBase.tcc in Headers */,
+				F5F6AAEE1418A58200F9B483 /* gVectorCore.tcc in Headers */,
+				F5F6AAEF1418A58200F9B483 /* gVectorIterator.tcc in Headers */,
+				F5F6AAF01418A58200F9B483 /* gVectorMemBase.tcc in Headers */,
+				F5F6AAF11418A58200F9B483 /* gVectorOpers.tcc in Headers */,
+				F5F6AAF21418A58200F9B483 /* matrix_funcs.tcc in Headers */,
+				F5F6AAF31418A58200F9B483 /* vector_funcs.tcc in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		F5F6AAAC1418A54E00F9B483 /* gLinear */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F5F6AAB51418A54E00F9B483 /* Build configuration list for PBXNativeTarget "gLinear" */;
+			buildPhases = (
+				F5F6AAA91418A54E00F9B483 /* Sources */,
+				F5F6AAAA1418A54E00F9B483 /* Frameworks */,
+				F5F6AAAB1418A54E00F9B483 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = gLinear;
+			productName = gLinear;
+			productReference = F5F6AAAD1418A54E00F9B483 /* libgLinear.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		58BCC058BCC058BCC0000000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 58C61058C61058C610000000 /* Build configuration list for PBXProject "gLinear" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 587710587710587710000000;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F5F6AAAC1418A54E00F9B483 /* gLinear */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F5F6AAA91418A54E00F9B483 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5F6AABA1418A57500F9B483 /* gError.cc in Sources */,
+				F5F6AABB1418A57500F9B483 /* gIndexRange.cc in Sources */,
+				F5F6AABC1418A57500F9B483 /* gLapackWrap.cc in Sources */,
+				F5F6AABD1418A57500F9B483 /* gLinearAlloc.cc in Sources */,
+				F5F6AABE1418A57500F9B483 /* gLinearMacros.cc in Sources */,
+				F5F6AABF1418A57500F9B483 /* matrix_funcs.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F591595D141504C40029C485 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F591595E141504C40029C485 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		58C77058C77058C770000000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_UNUSED_VALUE = NO;
+				OTHER_CFLAGS = (
+					"-DREAL=float",
+					"-mcpu=cortex-a8",
+					"-mfpu=neon",
+					"-mfloat-abi=hard",
+					"-mno-thumb",
+				);
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		58C91058C91058C910000000 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_UNUSED_VALUE = NO;
+				OTHER_CFLAGS = (
+					"-DREAL=float",
+					"-mcpu=cortex-a8",
+					"-mfpu=neon",
+					"-mfloat-abi=hard",
+					"-mno-thumb",
+				);
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		F5F6AAB61418A54E00F9B483 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/gLinear.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "gLinear/gLinear-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG_MODE=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F5F6AAB71418A54E00F9B483 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libc++";
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/gLinear.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "gLinear/gLinear-Prefix.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		58C61058C61058C610000000 /* Build configuration list for PBXProject "gLinear" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58C77058C77058C770000000 /* Debug */,
+				58C91058C91058C910000000 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F5F6AAB51418A54E00F9B483 /* Build configuration list for PBXNativeTarget "gLinear" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F5F6AAB61418A54E00F9B483 /* Debug */,
+				F5F6AAB71418A54E00F9B483 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 58BCC058BCC058BCC0000000 /* Project object */;
+}

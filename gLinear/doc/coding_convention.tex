@@ -1,0 +1,27 @@
+\documentclass[12pt,a4paper]{article}
+
+\begin{document}
+
+\title{gLinear Coding Conventions}
+\author{G. Esterhuizen}
+\maketitle
+
+\section{Identifiers}
+\subsection{Classes}
+Class names consist of words delimited by capital letters. \\
+Example:
+\begin{center} class \textbf{gVectorBase$<$T$>$} \end{center}
+
+\subsection{Generic Types}
+Generic types, e.g. iterator, are normally declared as typedefs inside classes.
+They are repsresented by words delimited by capital letters. \\
+Example:
+\begin{center} gVectorBase$<T$,stor$F>$\textbf{slice\_type} \end{center}
+
+\subsection{Traits}
+Trait classes are represented by non-capitalized words delimeted by
+underscores.
+Example:
+\begin{center} vector\_slice\_trait$<$VType$>$ \end{center}
+    
+\end{document}  

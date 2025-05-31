@@ -1,0 +1,27 @@
+Please make liberal use of this facility. Thanks, g.
+
+29/05/2003:	
+
+* Upgraded to GCC 3.2 - small changes required.
+   
+* Cleaned up Makefile variables.
+
+* Removed unnecessary compiler flags in Makefile.
+
+* Removed "gLinear/" from include path and removed -I.. CFLAG in Makefile.
+
+* Dropped old std::strstream in favour of std::stringstream.
+
+	Gerhard Esterhuizen <gerhard@flatfoot.co.za>
+	
+	
+28/02/2000:
+
+	Fixed gLinearFunctor non-standard compliance. 
+					<goof@dsp.sun.ac.za>
+
+28/02/2000:
+
+        Fixed gMatrixOpers default arguments for function templates.
+	Fixed gVectorOpers gRowVector operator!= Patrec weirdness.
+	                                <schwardt@dsp.sun.ac.za>

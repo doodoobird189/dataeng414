@@ -1,0 +1,50 @@
+digraph lda_bn {
+	rankdir = LR;
+	orientation = portrait;
+	size = "7.5,10.0";
+	newrank="true";
+
+
+	node [shape=point]
+
+	alpham [xlabel="am"]
+	Beta [xlabel="B"]
+
+
+	node [shape=ellipse]
+
+	thetam [label="tm"]
+	zmn [label="zmn"]
+	wmn [label="wmn",bgcolor="lightblue",style="filled"]
+	Phi [label="P"]
+
+	alpham -> thetam -> zmn -> wmn
+	wmn -> Phi [dir = "back"]
+	Phi -> Beta [dir = "back"]
+
+	{rank=min; alpham}
+	{rank=same; thetam}
+	{rank=same; zmn}
+	{rank=same; wmn}
+	{rank=same; Phi}
+	{rank=max; Beta}
+
+	subgraph clusterM {
+		style = "rounded"
+		label = "M"
+		labelloc = "b"
+		labeljust = "r"
+
+		subgraph clusterN {
+			style = "rounded"
+			label = "N"
+			labelloc = "b"
+			labeljust = "r"
+			zmn wmn
+		}
+
+		alpham thetam zmn wmn
+	}
+
+
+}

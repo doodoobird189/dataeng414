@@ -1,0 +1,39 @@
+
+    /* Loopy Belief Update */
+
+    // --- Setup for Loopy BP ---
+    // Create containers for messages and the message update queue.
+    // LBP parameters: damping factor, convergence threshold, and maximum operations.
+    dampingFactor = 0.2;  // How strongly new messages affect the current ones.
+    deltaThresh = 1e-4;   // Convergence threshold for message updates.
+    maxNoOfAbsorbs = 100; // Upper bound on absorb operations (scaled internally).
+
+    std::map<Idx2, rcptr<Factor>> messages2;
+    MessageQueue msgQueue2;
+    // Run loopy belief update on the cluster graph.
+    absorbCount = loopyBU_CG(cg,
+                             messages2,
+                             msgQueue2);
+    std::cout << "Loopy BU converged after " << absorbCount << " absorb operations." << std::endl;
+
+    // --- Querying the Beliefs ---
+    // Define which variables you want to obtain the marginal for.
+    // For instance, if you want the marginal for variable 19:
+    //queryVars = {2};
+
+    // Obtain the belief (marginal probability factor) for the specified query variables.
+    belief = queryLBU_CG(cg, messages, queryVars);
+
+    // Output the belief. Here, we assume that the Factor (or DiscreteTable)
+    // has a txtWrite method that outputs to an ostream.
+    std::cout << "Belief for variable(s) ";
+    for (auto v : queryVars)
+      std::cout << v << " ";
+    std::cout << ":\n";
+    belief->txtWrite(std::cout);
+    std::cout << std::endl;
+
+    //std::cout << pairFactors[2] << std::endl;
+    //std::cout << "Size: " << pairFactors.size() << std::endl;
+    //std::cout << belief->getProb({1}) << std::endl;
+    std::cout << belief->potentialAt({3},{2}) << std::endl;

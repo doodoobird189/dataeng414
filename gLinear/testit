@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Test output file 
+TESTOF=test.out
+# Test output reference file
+TESTROF=test.out.reference
+
+echo -e "Testing..."
+./testnew > ${TESTOF}
+DIFFS=`diff ${TESTROF} ${TESTOF}`;
+
+echo -e "Comparing results..."
+if [ -n "${DIFFS}" ]; then
+	echo -n "Results differ from reference set, view differences ? [y/N] "
+	read ANSWER
+	VIEW=${ANSWER:-n}
+	if [ ${VIEW} = y ]; then
+		diff ${TESTROF} ${TESTOF} | less;
+		echo -ne "\n\n"
+		echo -n "Replace current reference with latest results ? [y/N] "
+		read ANSWER
+		REPLACE=${ANSWER:-n}
+		if [ ${REPLACE} = y ]; then
+			echo -e "\nUpdating reference set..."
+			cp ${TESTOF} ${TESTROF} || echo "...done\n";
+		fi;
+	fi;
+else 
+	echo -e "\nResults correspond to reference set\n"
+fi
+
