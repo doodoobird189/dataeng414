@@ -1,0 +1,1 @@
+g++ -std=c++17 -O3  CMakeFiles/example.dir/example.cc.o -o example  -Wl,-rpath,/home/doodoobird189/devel/emdw/build/src:/home/doodoobird189/bin ../libemdw.so /home/doodoobird189/bin/libgLinear.so /home/doodoobird189/bin/libprlite.so -llapack -lblas -lssl -lcrypto -lz 
